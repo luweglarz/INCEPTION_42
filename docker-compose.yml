@@ -1,6 +1,19 @@
 version: "3"
 services:
-  web:
+  nginx:
     build: services/nginx
     ports:
       - "443:443"
+    volumes:
+      - inception_files:/var/www/inception
+    restart: always
+  wordpress:
+    build: services/wordpress
+    ports:
+      - "8000:80"
+    volumes:
+      - inception_files:/var/www/inception
+    restart: always
+volumes:
+  inception_files:
+    external: true

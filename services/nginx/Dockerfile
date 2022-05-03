@@ -4,7 +4,7 @@ FROM debian:buster
 EXPOSE 443
 
 #Update the container
-RUN apt-get update
+RUN apt-get -y update
 
 #Install nginx on the container
 RUN apt-get install -y nginx

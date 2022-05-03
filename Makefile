@@ -1,6 +1,7 @@
 all: run
 
 run:
+	docker volume create --name=inception_files
 	docker-compose up
 
 stop:
