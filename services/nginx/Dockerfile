@@ -9,9 +9,6 @@ RUN apt-get -y update
 #Install nginx on the container
 RUN apt-get install -y nginx
 
-#Create the root of the server
-RUN mkdir /var/www/inception
-
 #Copy the nginx config file of the webserver into the container and create symlink of it then delete the default config
 COPY config/website.conf /etc/nginx/sites-available/website.conf
 RUN ln -s /etc/nginx/sites-available/website.conf /etc/nginx/sites-enabled/ \

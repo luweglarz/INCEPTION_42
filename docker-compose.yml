@@ -1,19 +1,40 @@
 version: "3"
 services:
   nginx:
+    image: nginx
     build: services/nginx
     ports:
       - "443:443"
+    networks:
+      - inception_network
     volumes:
       - inception_files:/var/www/inception
-    restart: always
+    restart: on-failure
+
   wordpress:
+    image: wordpress
     build: services/wordpress
     ports:
-      - "8000:80"
+      - "8080"
+    networks:
+      - inception_network
     volumes:
       - inception_files:/var/www/inception
-    restart: always
+    restart: on-failure
+  mariadb:
+    image: mariadb
+    build: services/mariadb
+    ports:
+      - "3306"
+    networks:
+      - inception_network
+    volumes:
+      - inception_db:/var/lib/mysql
+    
 volumes:
   inception_files:
-    external: true
+  inception_db:
+
+networks:
+  inception_network:
+  
