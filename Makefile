@@ -5,6 +5,8 @@ DOCKER_VOLUME_LS= $(shell docker volume ls -q)
 all: run
 
 run:
+	mkdir -p /home/${USER}/data/wordpress
+	mkdir -p /home/${USER}/data/mariadb
 	docker-compose up --build
 
 stop:

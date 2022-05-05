@@ -20,5 +20,7 @@ RUN apt-get install -y openssl \
         -subj '/CN=lweglarz' \ 
         -keyout /etc/ssl/private/mywebserv.key -out /etc/ssl/certs/mywebserv.crt
 
+COPY nginx_setup.sh /
+
 #Start nginx on the foreground so the container doesn't leave and keep running
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["bash", "nginx_setup.sh"]

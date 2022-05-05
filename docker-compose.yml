@@ -2,39 +2,65 @@ version: "3"
 services:
   nginx:
     image: nginx
-    build: services/nginx
+    container_name: nginx
+    build: srcs/nginx
+    depends_on:
+      - wordpress
     ports:
       - "443:443"
     networks:
       - inception_network
     volumes:
-      - inception_files:/var/www/inception
+      - inception_files:/var/www
+    env_file:
+      - srcs/.env
     restart: on-failure
 
   wordpress:
     image: wordpress
-    build: services/wordpress
+    container_name: wordpress
+    build: srcs/wordpress
+    depends_on:
+      - mariadb
     ports:
-      - "8080"
+      - "9000:9000"
     networks:
       - inception_network
     volumes:
-      - inception_files:/var/www/inception
+      - inception_files:/var/www
+    env_file:
+      - srcs/.env
     restart: on-failure
+
   mariadb:
     image: mariadb
-    build: services/mariadb
+    container_name: mariadb
+    build: srcs/mariadb
     ports:
-      - "3306"
+      - "3306:3306"
     networks:
       - inception_network
     volumes:
       - inception_db:/var/lib/mysql
+    env_file:
+      - srcs/.env
     
 volumes:
   inception_files:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/${USER}/data/wordpress
+
   inception_db:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/${USER}/data/mariadb
 
 networks:
   inception_network:
+      driver: bridge
   
