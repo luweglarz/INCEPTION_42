@@ -9,7 +9,7 @@ RUN apt-get -y install wget
 #Install php and php-fpm
 RUN apt-get -y install php7.3 \
                     php7.3-fpm \
-                    php7.3-mysql
+                    php7.3-mysql 
 
 #Installing wordpress and moving it nginx root 
 RUN wget https://wordpress.org/latest.tar.gz 
