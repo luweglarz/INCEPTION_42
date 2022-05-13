@@ -44,6 +44,7 @@ services:
       - inception_db:/var/lib/mysql
     env_file:
       - srcs/.env
+    restart: always
     
 volumes:
   inception_files:
