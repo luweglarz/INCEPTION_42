@@ -7,13 +7,16 @@ all: run
 run:
 	mkdir -p /home/${USER}/data/wordpress
 	mkdir -p /home/${USER}/data/mariadb
-	docker-compose up --build
+	docker-compose -f srcs/docker-compose.yml up --build 
 
 stop:
-	docker-compose stop
+	docker-compose -f srcs/docker-compose.yml stop
+
+fclean: clean
+	sudo rm -rf data
 
 clean:
-	docker-compose down
+	docker-compose -f srcs/docker-compose.yml down
 ifneq ($(strip $(DOCKER_PS)),)
 	docker rm -f $(DOCKER_PS)
 endif
@@ -24,4 +27,4 @@ ifneq ($(strip $(DOCKER_VOLUME_LS)),)
 	docker volume rm $(DOCKER_VOLUME_LS)
 endif
 
-re: clean all
+re: fclean all

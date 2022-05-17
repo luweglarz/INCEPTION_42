@@ -1,9 +1,9 @@
-version: "3"
+version: "3.5"
 services:
   nginx:
     image: nginx
     container_name: nginx
-    build: srcs/nginx
+    build: nginx
     depends_on:
       - wordpress
     ports:
@@ -13,13 +13,13 @@ services:
     volumes:
       - inception_files:/var/www
     env_file:
-      - srcs/.env
+      - .env
     restart: on-failure
 
   wordpress:
     image: wordpress
     container_name: wordpress
-    build: srcs/wordpress
+    build: wordpress
     depends_on:
       - mariadb
     ports:
@@ -29,13 +29,13 @@ services:
     volumes:
       - inception_files:/var/www
     env_file:
-      - srcs/.env
+      - .env
     restart: on-failure
 
   mariadb:
     image: mariadb
     container_name: mariadb
-    build: srcs/mariadb
+    build: mariadb
     ports:
       - "3306:3306"
     networks:
@@ -43,7 +43,7 @@ services:
     volumes:
       - inception_db:/var/lib/mysql
     env_file:
-      - srcs/.env
+      - .env
     restart: always
     
 volumes:
