@@ -1,12 +1,17 @@
 DOCKER_PS= $(shell docker ps -a -q)
 DOCKER_IMAGES= $(shell docker images -q)
 DOCKER_VOLUME_LS= $(shell docker volume ls -q)
+DATA_PATH_WP= /home/${USER}/data/wordpress
+DATA_PATH_MDB= /home/${USER}/data/mariadb
 
 all: run
 
-run:
-	mkdir -p /home/${USER}/data/wordpress
-	mkdir -p /home/${USER}/data/mariadb
+build:
+	@if [ -d ${DATA_PATH_WP} ]; then	mkdir -p ${DATA_PATH_WP}; fi
+	@if [ -d ${DATA_PATH_MDB} ]; then mkdir -p ${DATA_PATH_MDB}; fi
+
+
+run: build
 	docker-compose -f srcs/docker-compose.yml up --build 
 
 stop:
