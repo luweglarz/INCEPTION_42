@@ -4,21 +4,22 @@ DOCKER_VOLUME_LS= $(shell docker volume ls -q)
 DATA_PATH_WP= /home/${USER}/data/wordpress
 DATA_PATH_MDB= /home/${USER}/data/mariadb
 
-all: run
+all: build
 
 build:
-	@if [ -d ${DATA_PATH_WP} ]; then	mkdir -p ${DATA_PATH_WP}; fi
-	@if [ -d ${DATA_PATH_MDB} ]; then mkdir -p ${DATA_PATH_MDB}; fi
+	mkdir -p ${DATA_PATH_WP}
+	mkdir -p ${DATA_PATH_MDB}
+	docker-compose -f srcs/docker-compose.yml up -d --build 
+	@echo "`tput  setaf 2` Server build and up"
 
-
-run: build
-	docker-compose -f srcs/docker-compose.yml up --build 
+run:
+	docker-compose -f srcs/docker-compose.yml start
 
 stop:
 	docker-compose -f srcs/docker-compose.yml stop
 
 fclean: clean
-	sudo rm -rf data
+	rm -rf data
 
 clean:
 	docker-compose -f srcs/docker-compose.yml down

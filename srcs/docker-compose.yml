@@ -22,8 +22,6 @@ services:
     build: wordpress
     depends_on:
       - mariadb
-    ports:
-      - "9000:9000"
     networks:
       - inception_network
     volumes:
@@ -36,8 +34,6 @@ services:
     image: mariadb
     container_name: mariadb
     build: mariadb
-    ports:
-      - "3306:3306"
     networks:
       - inception_network
     volumes:
