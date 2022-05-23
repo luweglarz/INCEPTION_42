@@ -14,7 +14,7 @@ service mysql start
 
 mysql < mariadbconf.sql
 
-mysql < userdump.sql
+mysql -uroot -p${MYSQL_ROOT_PASS} < userdump.sql
 
 sleep 3
 
