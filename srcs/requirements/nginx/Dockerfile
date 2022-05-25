@@ -6,8 +6,6 @@ RUN apt-get -y update
 
 RUN apt-get install -y nginx
 
-COPY conf/index.nginx-debian.html /
-
 COPY conf/website.conf /etc/nginx/sites-available/website.conf
 RUN ln -s /etc/nginx/sites-available/website.conf /etc/nginx/sites-enabled/ \
 && rm -rf /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default 

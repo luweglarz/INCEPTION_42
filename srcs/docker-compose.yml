@@ -3,9 +3,7 @@ services:
   nginx:
     image: nginx
     container_name: nginx
-    build: nginx
-    depends_on:
-      - wordpress
+    build: ./requirements/nginx
     ports:
       - "443:443"
     networks:
@@ -19,7 +17,7 @@ services:
   wordpress:
     image: wordpress
     container_name: wordpress
-    build: wordpress
+    build: ./requirements/wordpress
     depends_on:
       - mariadb
     networks:
@@ -33,11 +31,11 @@ services:
   mariadb:
     image: mariadb
     container_name: mariadb
-    build: mariadb
+    build: ./requirements/mariadb
     networks:
       - inception_network
     volumes:
-      - inception_db:/var/lib/mysql
+      - inception_db:/var/lib/mysql/
     env_file:
       - .env
     restart: always
@@ -48,7 +46,7 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/${USER}/data/wordpress
+      device: /home/${USER}/data/wordpress/
 
   inception_db:
     driver: local

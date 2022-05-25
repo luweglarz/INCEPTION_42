@@ -1,9 +1,9 @@
 #!/bin/bash
+
+unzip wordpress-5.9.1-fr_FR.zip -d /var/www
 if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 
-    tar xf latest.tar.gz
-    mv wordpress /var/www/
-    rm latest.tar.gz
+
     mv /wp-config.php /var/www/wordpress/
 
     sed -i "s/DB_NAME_TO_SED/$MYSQL_DB_NAME/g" /var/www/wordpress/wp-config.php
@@ -13,4 +13,5 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 fi
 
 mkdir /run/php
-php-fpm7.3 -F -R
+
+exec "$@"

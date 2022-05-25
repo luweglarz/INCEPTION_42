@@ -18,9 +18,6 @@ run:
 stop:
 	docker-compose -f srcs/docker-compose.yml stop
 
-fclean: clean
-	rm -rf data
-
 clean:
 	docker-compose -f srcs/docker-compose.yml down
 ifneq ($(strip $(DOCKER_PS)),)
@@ -33,4 +30,4 @@ ifneq ($(strip $(DOCKER_VOLUME_LS)),)
 	docker volume rm $(DOCKER_VOLUME_LS)
 endif
 
-re: fclean all
+re: clean all
