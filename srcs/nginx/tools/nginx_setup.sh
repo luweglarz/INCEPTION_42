@@ -1,6 +1,6 @@
 #!/bin/bash
 sed -i "s/TO_SED/$DOMAIN/g" /etc/nginx/sites-available/website.conf
 
-#mv /var/www/html/index.nginx-debian.html ../
+mv index.nginx-debian.html /var/www/
 
 nginx -g "daemon off;"
